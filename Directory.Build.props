@@ -1,0 +1,33 @@
+<Project>
+   <PropertyGroup>
+      <DotNetVer>net8.0</DotNetVer>
+      <LangVersion>latest</LangVersion>
+      <Nullable>enable</Nullable>
+      <ImplicitUsings>enable</ImplicitUsings>
+      <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+      <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+      <IncludeSorceReevisionInInformationalVersion>false</IncludeSorceReevisionInInformationalVersion>
+      <UseArtifactsOutput>true</UseArtifactsOutput>
+      <ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath>
+   </PropertyGroup>
+
+   <PropertyGroup>
+      <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+      <ExecutableAssemblyName>workspace-app</ExecutableAssemblyName>
+      <ApplicationTitle>Workspace App</ApplicationTitle>
+      <Company>Workspace</Company>
+      <Product>Workspace App</Product>
+      <Description>Workspace App</Description>
+      <AssemblyTitle>Workspace App</AssemblyTitle>
+      <ProductVersion>0.1.0.0</ProductVersion>
+      <Copyright>Copyright</Copyright>
+      <FileVersion>$(ProductVersion)</FileVersion>
+      <AssemblyVersion>$(FileVersion)</AssemblyVersion>
+   </PropertyGroup>
+
+   <PropertyGroup>
+      <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+      <AvaloniaNameGeneratorAttachDevTools>false</AvaloniaNameGeneratorAttachDevTools>
+   </PropertyGroup>
+
+</Project>

@@ -1,0 +1,125 @@
+<Project>
+  <PropertyGroup>
+    <TargetFrameworks>$(DotNetVer)</TargetFrameworks>
+    <TargetFrameworks Condition="!$([MSBUILD]::IsOSPlatform('linux'))">$(TargetFrameworks);$(DotNetVer)-macos;$(DotNetVer)-windows</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetOS Condition="'$(TargetOS)' == ''">$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)'))</TargetOS>
+    <TargetOS Condition="'$(TargetOS)' == ''">linux</TargetOS>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IsAndroid>false</IsAndroid>
+    <IsAndroid Condition="'$(TargetOS)' == 'android'">true</IsAndroid>
+    <IsiOS>false</IsiOS>
+    <IsiOS Condition="'$(TargetOS)' == 'ios'">true</IsiOS>
+    <IsLinux>false</IsLinux>
+    <IsLinux Condition="'$(TargetOS)' == 'linux'">true</IsLinux>
+    <IsMacos>false</IsMacos>
+    <IsMacos Condition="'$(TargetOS)' == 'macos'">true</IsMacos>
+    <IsWindows>false</IsWindows>
+    <IsWindows Condition="'$(TargetOS)' == 'windows'">true</IsWindows>
+    <IsDesktops>false</IsDesktops>
+    <IsDesktops Condition="$(IsLinux) or $(IsMacos) or $(IsWindows)">true</IsDesktops>
+    <IsMobiles>false</IsMobiles>
+    <IsMobiles Condition="$(IsiOS) or $(IsAndroid)">true</IsMobiles>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(IsAndroid)">
+    <DefineConstants>$(DefineConstants);ANDROID</DefineConstants>
+    <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(IsiOS)">
+    <DefineConstants>$(DefineConstants);IOS</DefineConstants>
+    <SupportedOSPlatformVersion>14.2</SupportedOSPlatformVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(IsLinux)">
+    <DefineConstants>$(DefineConstants);LINUX</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(IsMacos)">
+    <DefineConstants>$(DefineConstants);MACOS</DefineConstants>
+    <SupportedOSPlatformVersion>13.0.0</SupportedOSPlatformVersion>
+    <RuntimeIdentifiers>osx-x64;osx-arm64</RuntimeIdentifiers>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(IsWindows)">
+    <DefineConstants>$(DefineConstants);WINDOWS</DefineConstants>
+    <!--        <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>-->
+    <!--        <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>-->
+  </PropertyGroup>
+  <PropertyGroup Condition="$(IsDesktops)">
+    <DefineConstants>$(DefineConstants);DESKTOPS</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(IsMobiles)">
+    <DefineConstants>$(DefineConstants);MOBILES</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="**\**\*.{*}*.cs"/>
+    <None Include="**\**\*.{*}*.cs"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="!$(IsAndroid)">
+    <Compile Remove="**\**\*.Android.cs"/>
+    <None Include="**\**\*.Android.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInPropjectFolder)"/>
+    <Compile Remove="**\Android\**\*.cs"/>
+    <None Include="**\Android\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInPropjectFolder)"/>
+  </ItemGroup>
+  <ItemGroup Condition="$(IsAndroid)">
+    <Compile Include="**\**\*.{Android}*.cs"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="!$(IsiOS)">
+    <Compile Remove="**\**\*.iOS.cs"/>
+    <None Include="**\**\*.iOS.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInPropjectFolder)"/>
+    <Compile Remove="**\iOS\**\*.cs"/>
+    <None Include="**\iOS\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInPropjectFolder)"/>
+  </ItemGroup>
+  <ItemGroup Condition="$(IsiOS)">
+    <Compile Include="**\**\*.{iOS}*.cs"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="!$(IsLinux)">
+    <Compile Remove="**\**\*.Linux.cs"/>
+    <None Include="**\**\*.Linux.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInPropjectFolder)"/>
+    <Compile Remove="**\Linux\**\*.cs"/>
+    <None Include="**\Linux\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInPropjectFolder)"/>
+  </ItemGroup>
+  <ItemGroup Condition="$(IsLinux)">
+    <Compile Include="**\**\*.{Linux}*.cs"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="!$(IsMacos)">
+    <Compile Remove="**\**\*.Macos.cs"/>
+    <None Include="**\**\*.Macos.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInPropjectFolder)"/>
+    <Compile Remove="**\Macos\**\*.cs"/>
+    <None Include="**\Macos\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInPropjectFolder)"/>
+  </ItemGroup>
+  <ItemGroup Condition="$(IsMacos)">
+    <Compile Include="**\**\*.{Macos}*.cs"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="!$(IsWindows)">
+    <Compile Remove="**\**\*.Windows.cs"/>
+    <None Include="**\**\*.Windows.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInPropjectFolder)"/>
+    <Compile Remove="**\Windows\**\*.cs"/>
+    <None Include="**\Windows\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInPropjectFolder)"/>
+  </ItemGroup>
+  <ItemGroup Condition="$(IsWindows)">
+    <Compile Include="**\**\*.{Windows}*.cs"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="!$(IsDesktops)">
+    <Compile Remove="**\**\*.Desktops.cs"/>
+    <None Include="**\**\*.Desktops.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInPropjectFolder)"/>
+    <Compile Remove="**\Desktops\**\*.cs"/>
+    <None Include="**\Desktops\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInPropjectFolder)"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="!$(IsMobiles)">
+    <Compile Remove="**\**\*.Mobiles.cs"/>
+    <None Include="**\**\*.Mobiles.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInPropjectFolder)"/>
+    <Compile Remove="**\Mobiles\**\*.cs"/>
+    <None Include="**\Mobiles\**\*.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInPropjectFolder)"/>
+  </ItemGroup>
+</Project>

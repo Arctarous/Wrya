@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+   <Import Project="$(ProjectDir)..\Directory.Platforms.props"/>
+
+   <ItemGroup>
+      <PackageReference Include="Avalonia" />
+   </ItemGroup>
+
+   <ItemGroup>
+     <ProjectReference Include="..\WebView.Core\WebView.Core.csproj" />
+   </ItemGroup>
+
+   <ItemGroup Condition="'$(IsLinux)' == 'true'">
+   </ItemGroup>
+
+   <ItemGroup Condition="'$(IsMacos)' == 'true'">
+      <ProjectReference Include="..\WebView.WebKit\WebView.WebKit.csproj" />
+   </ItemGroup>
+
+   <ItemGroup Condition="'$(IsWindows)' == 'true'">
+
+   </ItemGroup>
+</Project>
