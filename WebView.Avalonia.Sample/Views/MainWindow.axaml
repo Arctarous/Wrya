@@ -16,6 +16,17 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <!-- <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/> -->
-   <webview:WebView />
+    <DockPanel LastChildFill="True">
+       <StackPanel DockPanel.Dock="Top"
+                   Orientation="Horizontal"
+                   HorizontalAlignment="Stretch"
+                   Spacing="6"
+                   Background="LightGray">
+          <Button Content="Back" Command="{Binding GoBackCommand}" />
+          <Button Content="Forward" Command="{Binding GoForwardCommand}" />
+          <Button Content="Baidu" Command="{Binding GoBaiduCommand}" />
+          <Button Content="Alert" Command="{Binding AlertCommand}" />
+       </StackPanel>
+       <webview:WebView Controller="{Binding WebView}" />
+    </DockPanel>
 </Window>

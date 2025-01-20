@@ -5,7 +5,9 @@ namespace WebView.Base;
 
 public interface IWebViewPlatformImpl : IDisposable
 {
-   Task<IntPtr> InitializeAsync(IntPtr parentWindow, WebViewOptions options);
+   IntPtr? Handle { get; }
+   
+   Task InitializeAsync(WebViewOptions options);
    
    void Close();
    
@@ -20,4 +22,6 @@ public interface IWebViewPlatformImpl : IDisposable
    void Navigate(Uri? uri);
    
    void LoadHtml(string htmlContent);
+
+   Task<string> ExecuteScriptAsync(string script);
 }

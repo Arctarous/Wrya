@@ -5,7 +5,7 @@ namespace WebView.Base;
 public static class WebViewEnvironment
 {
    private static IWebViewEnvironment? current = null;
-   private static Func<IWebViewPlatformImpl>? platformImplResolver = null;
+   private static Func<IntPtr, IWebViewPlatformImpl>? platformImplResolver = null;
 
    public static IWebViewEnvironment Current => current ??= new WebViewEnvironmentImpl();
    
@@ -14,20 +14,20 @@ public static class WebViewEnvironment
       current = impl;
    }
    
-   internal static IWebViewPlatformImpl? CreatePlatformImpl() =>
-      platformImplResolver?.Invoke();
+   internal static IWebViewPlatformImpl? CreatePlatformImpl(IntPtr parentHandle) =>
+      platformImplResolver?.Invoke(parentHandle);
    
-   public static void SetPlatformImpl(Func<IWebViewPlatformImpl> resolver)
+   public static void SetPlatformImpl(Func<IntPtr, IWebViewPlatformImpl> resolver)
    {
       platformImplResolver = resolver;
    }
    
-   public static IWebViewCore CreateWebViewCore() =>
-      Current.CreateWebViewCore();
+   public static ICoreWebView CreateCoreWebView(IntPtr parentHandle) =>
+      Current.CreateWebViewCore(parentHandle);
 }
 
 sealed partial class WebViewEnvironmentImpl : IWebViewEnvironment
 {
-   public IWebViewCore CreateWebViewCore() =>
-      new WebViewCore(WebViewEnvironment.CreatePlatformImpl());
+   public ICoreWebView CreateWebViewCore(IntPtr parentHandle) =>
+      new CoreWebView(WebViewEnvironment.CreatePlatformImpl(parentHandle));
 }

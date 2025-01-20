@@ -10,23 +10,35 @@ public class WebKitImpl : IWebViewPlatformImpl
 {
    private const string ScriptMessageHandlerName = "webwindowinterop";
 
-   private WKWebView? wkWebView;
+   private readonly WKWebView wkWebView;
    
    public Uri? Url => wkWebView?.Url;
    
-   ~WebKitImpl()
-   {
-      Close();
-   }
-   
-   public Task<IntPtr> InitializeAsync(
-      IntPtr parentWindow,
-      WebViewOptions options)
+   public WebKitImpl(IntPtr parentHandle)
    {
       var config = new WKWebViewConfiguration()
       {
          WebsiteDataStore = WKWebsiteDataStore.DefaultDataStore,
       };
+      wkWebView = new(CGRect.Empty, config)
+      {
+         NavigationDelegate = new WKNavigationDelegate(),
+         //AutoresizesSubviews = true,
+      };
+   }
+   
+   ~WebKitImpl()
+   {
+      Close();
+   }
+
+
+   public IntPtr? Handle => wkWebView.Handle;
+
+
+   public Task InitializeAsync(WebViewOptions options)
+   {
+      var config = wkWebView.Configuration;
 
       // By default, setting inline media playback to allowed, including autoplay
       // and picture in picture, since these things MUST be set during the webview
@@ -48,12 +60,6 @@ public class WebKitImpl : IWebViewPlatformImpl
       // iOS WKWebView doesn't allow handling 'http'/'https' schemes, so we use the fake 'app' scheme
       config.SetUrlSchemeHandler(new SchemeHandler(this), urlScheme: "app");
 
-      wkWebView = new(CGRect.Empty, config)
-      {
-         NavigationDelegate = new WKNavigationDelegate(),
-         //AutoresizesSubviews = true,
-      };
-
       if (options.DeveloperToolsEnabled)
       {
          config.Preferences.SetValueForKey(NSObject.FromObject(true), new NSString("developerExtrasEnabled"));
@@ -64,13 +70,12 @@ public class WebKitImpl : IWebViewPlatformImpl
          }
       }
       
-      return Task.FromResult(wkWebView.Handle.Handle);
+      return Task.CompletedTask;
    }
 
    public void Close()
    {
-      wkWebView?.Dispose();
-      wkWebView = null;
+      wkWebView.Dispose();
    }
 
    public void Dispose()
@@ -79,13 +84,13 @@ public class WebKitImpl : IWebViewPlatformImpl
       GC.SuppressFinalize(this);
    }
    
-   public bool GoBack() => wkWebView?.CanGoBack ?? false;
+   public bool GoBack() => wkWebView.CanGoBack;
    
-   public bool GoForward() => wkWebView?.CanGoForward ?? false;
+   public bool GoForward() => wkWebView.CanGoForward;
    
-   public void Reload() => wkWebView?.Reload();
+   public void Reload() => wkWebView.Reload();
    
-   public void StopLoading() => wkWebView?.StopLoading();
+   public void StopLoading() => wkWebView.StopLoading();
    
    public void Navigate(Uri? uri)
    {
@@ -96,26 +101,22 @@ public class WebKitImpl : IWebViewPlatformImpl
 
       using var nsUrl = new NSUrl(uri.AbsoluteUri);
       using var request = new NSUrlRequest(nsUrl);
-      wkWebView?.LoadRequest(request);
+      wkWebView.LoadRequest(request);
    }
    
    public void LoadHtml(string htmlContent)
    {
-      wkWebView?.LoadHtmlString(htmlContent, default!);
+      wkWebView.LoadHtmlString(htmlContent, null!);
    }
    
-   async Task<string> EvaluateJavaScript(string script)
+   public async Task<string> ExecuteScriptAsync(string script)
    {
-      NSObject? result = null;
-      if ( wkWebView != null )
-      {
-         result = await wkWebView.EvaluateJavaScriptAsync(script);
-      }
-      return result?.ToString() ?? "null";
+      var result = await wkWebView.EvaluateJavaScriptAsync(script);
+      return result.ToString();
    }
    
-   public async void EvaluateJavaScript(EvaluateJavaScriptAsyncRequest request)
-   {
-      request.RunAndReport(EvaluateJavaScript(request.Script));
-   }
+   // public void EvaluateJavaScript(EvaluateJavaScriptAsyncRequest request)
+   // {
+   //    request.RunAndReport(ExecuteScriptAsync(request.Script));
+   // }
 }

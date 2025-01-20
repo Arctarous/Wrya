@@ -1,5 +1,4 @@
 using Avalonia;
-using WebView.Base;
 
 namespace WebView.Avalonia;
 

@@ -1,0 +1,14 @@
+WNDCLASSEXW
+WINDOW_LONG_PTR_INDEX
+
+WM_WINDOWPOSCHANGED
+WM_DESTROY
+
+CreateWindowEx
+DefWindowProc
+DestroyWindow
+GetWindowRect
+IsWindow
+RegisterClassEx
+ScreenToClient
+SetWindowLong

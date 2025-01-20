@@ -1,6 +1,6 @@
 using Avalonia;
 using WebView.Base;
-using WebView.WebKit;
+using WebView.WebView2;
 
 namespace WebView.Avalonia;
 
@@ -8,6 +8,6 @@ public static partial class WebViewExtensions
 {
    static partial void UseWebViewImpl()
    {
-      WebViewEnvironment.SetPlatformImpl((parentHandle) => new WebKitImpl(parentHandle));
+      WebViewEnvironment.SetPlatformImpl(parentHandle => new WebView2Impl(parentHandle));
    }
 }

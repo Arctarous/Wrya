@@ -1,11 +1,7 @@
 namespace WebView.Core;
 
-public interface IWebViewCore
+public interface IWebView
 {
-   Task<IntPtr> InitializeAsync(IntPtr parentWindow, WebViewOptions? options = null);
-   
-   void Close();
-   
    bool GoBack();
    
    bool GoForward();
@@ -17,4 +13,6 @@ public interface IWebViewCore
    void Navigate(Uri? uri);
    
    void LoadHtml(string htmlContent);
+   
+   Task<string> ExecuteScriptAsync(string script);
 }
