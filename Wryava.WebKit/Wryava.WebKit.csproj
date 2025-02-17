@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+   <Import Project="$(ProjectDir)..\Directory.Platforms.props" />
+
+   <PropertyGroup>
+        <TargetFrameworks>net8.0-macos;net8.0-ios</TargetFrameworks>
+    </PropertyGroup>
+
+   <ItemGroup>
+      <ProjectReference Include="..\Wryava.Core\Wryava.Core.csproj" />
+   </ItemGroup>
+</Project>

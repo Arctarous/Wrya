@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+   <Import Project="$(ProjectDir)..\Directory.Platforms.props"/>
+
+   <ItemGroup>
+      <PackageReference Include="Avalonia" />
+   </ItemGroup>
+
+   <ItemGroup>
+     <ProjectReference Include="..\Wryava.Core\Wryava.Core.csproj" />
+   </ItemGroup>
+
+   <ItemGroup Condition="'$(IsLinux)' == 'true'">
+   </ItemGroup>
+
+   <ItemGroup Condition="'$(IsMacos)' == 'true'">
+      <ProjectReference Include="..\Wryava.WebKit\Wryava.WebKit.csproj" />
+   </ItemGroup>
+
+   <ItemGroup Condition="'$(IsWindows)' == 'true'">
+     <ProjectReference Include="..\Wryava.WebView2\Wryava.WebView2.csproj" />
+   </ItemGroup>
+</Project>

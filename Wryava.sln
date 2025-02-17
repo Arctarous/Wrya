@@ -5,19 +5,19 @@ VisualStudioVersion = 17.12.35707.178 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3AA88A52-E1E5-4B91-A058-E5A03E982B6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebView.Core", "WebView.Core\WebView.Core.csproj", "{CE3BD65D-39FF-4C8A-9D63-036F79BF222A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wryava.Core", "Wryava.Core\Wryava.Core.csproj", "{CE3BD65D-39FF-4C8A-9D63-036F79BF222A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebView.WebKit", "WebView.WebKit\WebView.WebKit.csproj", "{4C9CB439-08B1-4F4D-8416-C1A694C15BF3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wryava.WebKit", "Wryava.WebKit\Wryava.WebKit.csproj", "{4C9CB439-08B1-4F4D-8416-C1A694C15BF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebView.WebKitGtk", "WebView.WebKitGtk\WebView.WebKitGtk.csproj", "{0BE68429-BCC6-41AD-B380-1DF7DB5920A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wryava.WebKitGtk", "Wryava.WebKitGtk\Wryava.WebKitGtk.csproj", "{0BE68429-BCC6-41AD-B380-1DF7DB5920A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebView.WebView2", "WebView.WebView2\WebView.WebView2.csproj", "{7376EC6D-5FA4-44F3-9EC1-88F02B207AE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wryava.WebView2", "Wryava.WebView2\Wryava.WebView2.csproj", "{7376EC6D-5FA4-44F3-9EC1-88F02B207AE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebView.Avalonia", "WebView.Avalonia\WebView.Avalonia.csproj", "{6A8F6ABE-9B5B-4431-855D-1D9017BC04E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wryava.Avalonia", "Wryava.Avalonia\Wryava.Avalonia.csproj", "{6A8F6ABE-9B5B-4431-855D-1D9017BC04E9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{89029A5A-322B-488A-ACC0-A1F34FCFFFF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebView.Avalonia.Sample", "WebView.Avalonia.Sample\WebView.Avalonia.Sample.csproj", "{6A6E3E3D-082C-4004-B03A-A5906B926773}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wryava.Avalonia.Sample", "Wryava.Avalonia.Sample\Wryava.Avalonia.Sample.csproj", "{6A6E3E3D-082C-4004-B03A-A5906B926773}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

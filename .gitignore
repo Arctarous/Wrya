@@ -8,5 +8,4 @@ artifacts/
 .idea/
 .vscode/ 
 .vs/
-*.csproj.user
-*.sln.user
+*.user

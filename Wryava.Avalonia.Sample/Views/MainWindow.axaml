@@ -1,0 +1,32 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Wryava.Avalonia.Sample.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:webview="using:Wryava.Avalonia"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Wryava.Avalonia.Sample.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="Wryava.Core Avalonia Sample">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <DockPanel LastChildFill="True">
+       <StackPanel DockPanel.Dock="Top"
+                   Orientation="Horizontal"
+                   HorizontalAlignment="Stretch"
+                   Spacing="6"
+                   Background="LightGray">
+          <Button Content="Back" Command="{Binding GoBackCommand}" />
+          <Button Content="Forward" Command="{Binding GoForwardCommand}" />
+          <Button Content="Baidu" Command="{Binding GoBaiduCommand}" />
+          <Button Content="Alert" Command="{Binding AlertCommand}" />
+       </StackPanel>
+       <webview:WebView Controller="{Binding WebView}" />
+    </DockPanel>
+</Window>
